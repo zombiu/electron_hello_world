@@ -18,5 +18,16 @@ btn_event1.addEventListener('click',async(event) => {
     console.log('addEventListener click',result);
 })
 
+let captrueImg = document.querySelector('#captrueImg')
+
+let btn_event2 = document.querySelector('#btn_event2')
+btn_event2.addEventListener('click',async(event) => {
+    let result =await   window.globalConfig.mediaCaptrue()
+    console.log(result);
+    captrueImg.src = result
+})
+
+
+
 
 

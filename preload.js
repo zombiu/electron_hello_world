@@ -2,6 +2,15 @@
 
 const { contextBridge, ipcRenderer } = require('electron/renderer')
 console.log('-->>preload.js');
+
+const mediaCaptrue = async() => {
+   let result = await ipcRenderer.invoke('mediaCaptrue')
+//    获取图像数据
+   let imgData = result.thumbnail.toDataURL()
+   return imgData
+}
+
+
 contextBridge.exposeInMainWorld('globalConfig', {
     'platform':process.platform,
     'fetchData': (code) => {
@@ -10,5 +19,6 @@ contextBridge.exposeInMainWorld('globalConfig', {
     'send': async (data) => {
         console.log('send',data);
        return ipcRenderer.invoke('sendEvent',data)
-    }
+    },
+    mediaCaptrue,
 })

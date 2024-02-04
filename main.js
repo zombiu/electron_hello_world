@@ -16,7 +16,7 @@
 //  "start": "nodemon --exec electron ."  
 
 // common.js 包规范导入
-const {app,BrowserWindow,ipcMain ,Menu,dialog} = require('electron')
+const {app,BrowserWindow,ipcMain ,Menu,dialog,desktopCapturer} = require('electron')
 const path= require('path')
 const WinState = require('electron-win-state').default
 const mainMenu = require('./mainMenu')
@@ -44,8 +44,8 @@ const createWindow = () => {
         // contextIsolation:false,
         preload: path.join(__dirname, './preload.js')
     }})
-    // win.loadFile('index.html')
-    win.loadURL('https://github.com')
+    win.loadFile('index.html')
+    // win.loadURL('https://github.com')
     // 打开开发者工具
     win.webContents.openDevTools()
     console.log('文件目录='+__dirname);
@@ -76,6 +76,25 @@ const createWindow = () => {
 
         // 托盘功能
     createTray(app,win)
+
+    // desktopCapturer 捕获音视频信息 只在主进程（main process）可⽤
+    ipcMain.handle('mediaCaptrue',async(event) => {
+        console.log('ipcMain mediaCaptrue');
+
+      return  desktopCapturer.getSources({
+            types: ['window', 'screen'],
+            thumbnailSize: {
+            width: 1728,
+            height: 1117
+            }
+ }).then(async(sources) => {
+    for(const source of sources) {
+       if (source.name == '整个屏幕') {
+            return source
+       } 
+    }
+ })
+    })
 }
 
 app.whenReady().then(() => {
