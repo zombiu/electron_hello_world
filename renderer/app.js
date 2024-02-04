@@ -28,6 +28,13 @@ btn_event2.addEventListener('click',async(event) => {
 })
 
 
+let btn_event3 = document.querySelector('#btn_event3')
+btn_event3.addEventListener('click',async(event) => {
+    window.globalConfig.testNativeImage()
+
+
+})
+
 
 
 

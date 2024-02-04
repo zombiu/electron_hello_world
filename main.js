@@ -48,10 +48,13 @@ const createWindow = () => {
         ...winState.winOptions,
         // width:1000,height:800,
     webPreferences:{
+        // // 开启沙盒则preload脚本被禁用，所以得设为false
+        sandbox: false, 
         // nodeIntegration:true,
         // contextIsolation:false,
         preload: path.join(__dirname, './preload.js')
     }})
+ 
     win.loadFile('index.html')
     // win.loadURL('https://github.com')
     // 打开开发者工具
