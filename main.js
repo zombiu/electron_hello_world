@@ -12,6 +12,14 @@
 // 使用如下命令检验是否成功：
 // npm config get registry 
 
+// 默认安装package.json中的所有模块。
+// npm install 
+// 如果只想安装dependencies中的内容，可以使用--dependencies字段：
+// npm install --dependencies
+// 同样只想安装devDependencies中的内容，可以使用--devDependencies字段：
+// npm install --devDependencies
+
+
 // 修改js 可以使app重启
 //  "start": "nodemon --exec electron ."  
 
